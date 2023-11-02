@@ -13,6 +13,7 @@ import 'image_message.dart';
 import 'message_status.dart';
 import 'text_message.dart';
 import 'user_avatar.dart';
+import 'user_name.dart';
 
 /// Base widget for all message types in the chat. Renders bubbles around
 /// messages and status. Sets maximum width for a message for
@@ -216,7 +217,7 @@ class Message extends StatelessWidget {
                         : InheritedChatTheme.of(context).theme.primaryColor,
                   ),
                   child: ClipRRect(
-                    borderRadius: borderRadius,
+                    // borderRadius: borderRadius,
                     child: _messageBuilder(),
                   ),
                 );
@@ -325,15 +326,15 @@ class Message extends StatelessWidget {
           ? EdgeInsetsDirectional.only(
               bottom: 4,
               end: isMobile ? query.padding.right : 0,
-              start: 20 + (isMobile ? query.padding.left : 0),
+              start: 12 + (isMobile ? query.padding.left : 0),
             )
           : EdgeInsets.only(
               bottom: 4,
-              left: 20 + (isMobile ? query.padding.left : 0),
+              left: 12 + (isMobile ? query.padding.left : 0),
               right: isMobile ? query.padding.right : 0,
             ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         textDirection: bubbleRtlAlignment == BubbleRtlAlignment.left
             ? null
@@ -345,8 +346,12 @@ class Message extends StatelessWidget {
               maxWidth: messageWidth.toDouble(),
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                if (showName)
+                  Align(
+                      alignment: Alignment.topLeft,
+                      child: UserName(author: message.author,),),
                 GestureDetector(
                   onDoubleTap: () => onMessageDoubleTap?.call(context, message),
                   onLongPress: () => onMessageLongPress?.call(context, message),

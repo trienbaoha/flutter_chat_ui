@@ -256,7 +256,7 @@ List<Object> calculateChatMessages(
         0,
         UnreadHeaderData(
           marginTop:
-              nextMessageDifferentDay || nextMessageDateThreshold ? 0 : 8,
+              nextMessageDifferentDay || nextMessageDateThreshold ? 4 : 8,
         ),
       );
     }
